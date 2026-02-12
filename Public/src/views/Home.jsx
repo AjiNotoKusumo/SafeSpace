@@ -9,6 +9,7 @@ export default function Home() {
     const [lodgings, setLodgings] = useState([])
     const [search, setSearch] = useState('')
     const [filter, setFilter] = useState('')
+    const [sort, setSort] = useState('')
 
     async function fetchTypes() {
         try {
@@ -23,7 +24,7 @@ export default function Home() {
 
     async function fetchLodgings() {
         try {
-            const {data} = await axios.get(`${baseUrl}/pub?search=${search}&filter=${filter}`)
+            const {data} = await axios.get(`${baseUrl}/pub?search=${search}&filter=${filter}&sort=${sort}`)
             
             setLodgings(data.data.rows)
         } catch (error) {
@@ -38,7 +39,7 @@ export default function Home() {
 
     useEffect(() => {
         fetchLodgings()
-    }, [search, filter])
+    }, [search, filter, sort])
     
     return (
         <>
@@ -117,10 +118,10 @@ export default function Home() {
                     </div>
                     <div className="space-y-2">
                         <label className="text-sm font-medium">Sort by</label>
-                        <select className="w-full h-11 rounded-lg border border-gray-200 px-3">
-                        <option selected disabled>Sort</option>
-                        <option>Newest</option>
-                        <option>Oldest</option>
+                        <select className="w-full h-11 rounded-lg border border-gray-200 px-3" onChange={(event) => setSort(event.target.value)}>
+                            <option value="" selected>Sort</option>
+                            <option value="-createdAt">Newest</option>
+                            <option value="createdAt">Oldest</option>
                         </select>
                     </div>
                     </aside>
