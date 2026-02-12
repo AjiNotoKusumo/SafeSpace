@@ -1,7 +1,9 @@
 import { useState } from "react";
 import axios from 'axios'
 import MediumButton from "../components/MediumButton";
-import { useNavigate } from "react-router";
+import { Navigate, useNavigate } from "react-router";
+import notification from "../helpers/notification";
+import logo from '../assets/SafeSpaceLogo.png';
 
 export default function Login({email, setEmail}) {
     const [password, setPassword] = useState('')
@@ -15,10 +17,23 @@ export default function Login({email, setEmail}) {
         localStorage.setItem('access_token', data.access_token)
 
         navigate("/lodgings")
-        
+        notification('Login success', 'success')
+
       } catch (error) {
         console.log(error.response.data.message);
+        notification(error.response.data.message, 'error')
+        
       }
+    }
+
+    if(localStorage.access_token) {
+      notification(`You're already logged in`, 'success')
+
+      return (
+        <>
+          <Navigate to="/lodgings" />
+        </>
+      )
     }
 
     return (
@@ -26,8 +41,8 @@ export default function Login({email, setEmail}) {
             {/* Login Section */}
               <section className="container" id="login-section">
                 <div className="row">
-                  <div className="col-12 text-center">
-                    <h1 className="mb-3 mt-5">Login</h1>
+                  <div className="col-12 text-center d-flex flex-column align-items-center justify-content-center">
+                    <img src={logo} width="400px" className="mb-3 mt-5"/>
                     <span>
                       Log in to create, edit, or delete Lodgings.
                     </span>

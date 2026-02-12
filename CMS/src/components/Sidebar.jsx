@@ -55,7 +55,7 @@ export default function Sidebar({email}) {
                         <span className="icon material-symbols-outlined me-2">
                         person
                         </span>
-                        Hey, <span id="username">{email.split('@')[0]}</span>
+                        Hey, <span id="username">{email.split('@')[0] || 'SafeSpacer'}</span>
                     </a>
                     </li>
                     <li className="nav-item">

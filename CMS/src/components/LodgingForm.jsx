@@ -3,6 +3,7 @@ import MediumButton from "../components/MediumButton";
 import axios from 'axios'
 import baseUrl from "../constants/baseUrl"
 import { useNavigate } from "react-router";
+import notification from "../helpers/notification";
 
 export default function LodgingForm({id}) {
     const navigate = useNavigate()
@@ -85,8 +86,13 @@ export default function LodgingForm({id}) {
             }
             
             navigate('/lodgings')
+
+            notification(axiosData.message, 'success')
+
         } catch (error) {
-            console.log(error);
+            console.log(error.response.data.message);
+            notification(error.response.data.message, 'error')
+            
         }
     }
 

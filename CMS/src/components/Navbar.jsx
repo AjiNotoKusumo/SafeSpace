@@ -1,3 +1,5 @@
+import logo from '../assets/SafeSpaceLogo.png';
+
 export default function Navbar() {
     return (
         <>
@@ -9,10 +11,10 @@ export default function Navbar() {
                 <a className="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6">
                 {" "}
                 <img
-                    src="./image/IDEA_logo.svg"
+                    src={logo}
                     width={80}
                     className="d-inline-block me-2"
-                    alt="IDEA"
+                    alt="logo"
                 />
                 Admin Panel
                 </a>

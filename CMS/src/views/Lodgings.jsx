@@ -3,9 +3,13 @@ import axios from 'axios'
 import currencyFormatter from "../helpers/formatCurrency"
 import { NavLink } from "react-router"
 import baseUrl from "../constants/baseUrl"
+import notification from "../helpers/notification"
 
 export default function Lodgings() {
     const [lodgings, setLodgings] = useState([])
+    const [file, setFile] = useState({})
+    const [modal, setModal] = useState(false)
+    const [id, setId] = useState(0)
 
     async function fetchLodgings() {
         try {
@@ -30,8 +34,36 @@ export default function Lodgings() {
             })
 
             setLodgings((prevData) => prevData.filter(lodging => lodging.id !== id))
+
+            notification(data.message, 'success')
         } catch (error) {
-            console.log(error);
+            console.log(error.response.data.message);
+            notification(error.response.data.message, 'error')
+        }
+    }
+
+    async function handleUpload(event) {
+        event.preventDefault()
+        try {
+            const formData = new FormData()
+            formData.append("file", file)
+            
+            const {data} = await axios.patch(`${baseUrl}/lodgings/${id}`,formData, {
+                headers: {
+                    Authorization: `bearer ${localStorage.getItem('access_token')}`
+                }
+            })
+
+            fetchLodgings()
+
+            notification(data.message, 'success')
+
+            setId(0)
+            setFile({})
+            setModal(false)
+        } catch (error) {
+            console.log(error.response.data.message);
+            notification(error.response.data.message, 'error')
         }
     }
 
@@ -41,6 +73,43 @@ export default function Lodgings() {
 
     return (
         <>
+            {modal && (
+                
+                <div className="modal fade show d-block" tabIndex="-1">
+                <div className="modal-dialog">
+                    <div className="modal-content">
+                    
+                    <div className="modal-header">
+                        <h5 className="modal-title">Upload Image</h5>
+                    </div>
+
+                    <form onSubmit={(event) => handleUpload(event)}>
+                    <div className="modal-body">
+                        <input
+                        type="file"
+                        accept="image/*"
+                        className="form-control"
+                        onChange={(event) => setFile(event.target.files[0])}
+                        />
+                    </div>
+
+                    <div className="modal-footer">
+                        <button type="button" className="btn btn-secondary" onClick={() => setModal(false)}>
+                        Cancel
+                        </button>
+                        <button type="submit" className="btn btn-primary">
+                        Upload
+                        </button>
+                    </div>
+                    </form>
+
+                    </div>
+                </div>
+                </div>
+            )}
+
+            {modal && <div className="modal-backdrop fade show"></div>}
+
             {/* Product Section */}
             <section
                 className="col-md-9 ms-sm-auto col-lg-10 px-md-4"
@@ -49,7 +118,7 @@ export default function Lodgings() {
                 <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                 <h1 className="display-2">Lodgings</h1>
                 <NavLink to="/create" className="btn btn-primary rounded-pill d-flex align-items-center justify-content-center" id="new-product">
-                    <span className="fw-bold">+ </span> New Product
+                    <span className="fw-bold">+ </span> New Lodging
                 </NavLink>
                 </div>
                 <div className="row">
@@ -99,11 +168,11 @@ export default function Lodgings() {
                                         edit
                                         </span>
                                     </NavLink>
-                                    <a href="" className="ms-3">
+                                    <button type="button" onClick={() => {setModal(true); setId(lodging.id)}} className="ms-3 bg-transparent border-0">
                                         <span className="icon material-symbols-outlined text-danger">
                                         image
                                         </span>
-                                    </a>
+                                    </button>
                                     </span>
                                 </td>
                                 </tr>

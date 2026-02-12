@@ -3,6 +3,7 @@ import LargeButton from "../components/LargeButton";
 import { useNavigate } from "react-router";
 import axios from 'axios'
 import baseUrl from "../constants/baseUrl";
+import notification from "../helpers/notification";
 
 export default function AddUser() {
     const navigate = useNavigate()
@@ -35,8 +36,10 @@ export default function AddUser() {
             })
 
             navigate("/lodgings")
+            notification(data.message, 'success')
         } catch (error) {
-            console.log(error)
+            console.log(error.response.data.message)
+            notification(error.response.data.message, 'error')
         }
     }
 
