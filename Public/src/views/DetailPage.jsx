@@ -3,6 +3,7 @@ import { useParams } from 'react-router'
 import baseUrl from '../constants/baseUrl';
 import { useEffect, useState } from 'react';
 import currencyFormatter from '../helpers/formatCurrency';
+import { NavHashLink } from 'react-router-hash-link';
 
 
 export default function DetailPage() {
@@ -89,14 +90,14 @@ export default function DetailPage() {
                         <p className="text-sm text-gray-500">Price</p>
                         <p className="text-2xl font-bold text-gray-900">{currencyFormatter(lodging.price)}</p>
                         </div>
-                        <a
-                        href="/"
+                        <NavHashLink
+                        to="/#explore"
                         className="block w-full rounded-lg bg-indigo-600 px-4 py-3 text-center text-white font-semibold transition hover:bg-indigo-500 active:scale-95"
                         >
                         Return to explore
-                        </a>
+                        </NavHashLink>
                         <p className="text-xs text-gray-500 text-center">
-                        Limited capacity available
+                        Limited room available
                         </p>
                     </div>
                     </div>

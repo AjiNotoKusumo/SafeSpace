@@ -28,3 +28,7 @@
   .delay-300 {
     animation-delay: 0.3s;
   }
+
+#home {
+  scroll-margin-top: 6rem;
+}
