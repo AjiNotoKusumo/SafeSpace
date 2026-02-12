@@ -10,6 +10,7 @@ export default function Home() {
     const [search, setSearch] = useState('')
     const [filter, setFilter] = useState('')
     const [sort, setSort] = useState('')
+    const [page, setPage] = useState(1)
 
     async function fetchTypes() {
         try {
@@ -24,13 +25,28 @@ export default function Home() {
 
     async function fetchLodgings() {
         try {
-            const {data} = await axios.get(`${baseUrl}/pub?search=${search}&filter=${filter}&sort=${sort}`)
+            const {data} = await axios.get(`${baseUrl}/pub?search=${search}&filter=${filter}&sort=${sort}&page=${page}`)
+            console.log(page);
             
-            setLodgings(data.data.rows)
+            setLodgings(data.data)
         } catch (error) {
             console.log(error.response.data.message);
         }
         
+    }
+
+    function pageNum(number) {
+        let pageArr = []
+
+        for(let i = 1; i <= number; i++){
+            pageArr.push(
+                <button className={`px-4 py-2 rounded border 
+                    hover:bg-gray-100 border-gray-200 cursor-pointer
+                    ${page === i ? 'bg-gray-200' : ''}`} onClick={() => setPage(i)}>{i}</button>
+            )
+        }
+
+        return pageArr
     }
 
     useEffect(() => {
@@ -39,7 +55,7 @@ export default function Home() {
 
     useEffect(() => {
         fetchLodgings()
-    }, [search, filter, sort])
+    }, [search, filter, sort, page])
     
     return (
         <>
@@ -91,7 +107,7 @@ export default function Home() {
                         <ul className="space-y-1 text-sm">
                             <li>
                             <button
-                                className={`w-full text-left rounded-lg px-3 py-2
+                                className={`w-full text-left rounded-lg px-3 py-2 cursor-pointer
                                     ${filter === '' ? 'font-medium hover:bg-indigo-50 text-indigo-600' : 'hover:bg-gray-100'}`}
                                 onClick={() => setFilter('')}
                             >
@@ -103,7 +119,7 @@ export default function Home() {
                                 return (
                                     <li>
                                         <button
-                                            className={`w-full text-left rounded-lg px-3 py-2
+                                            className={`w-full text-left rounded-lg px-3 py-2 cursor-pointer
                                                 transition ${filter === type.id ? 'font-medium hover:bg-indigo-50 text-indigo-600' : 'hover:bg-gray-100'}`}
                                             onClick={() => setFilter(type.id)}
                                         >
@@ -118,7 +134,7 @@ export default function Home() {
                     </div>
                     <div className="space-y-2">
                         <label className="text-sm font-medium">Sort by</label>
-                        <select className="w-full h-11 rounded-lg border border-gray-200 px-3" onChange={(event) => setSort(event.target.value)}>
+                        <select className="w-full h-11 rounded-lg border border-gray-200 px-3 cursor-pointer" onChange={(event) => setSort(event.target.value)}>
                             <option value="" selected>Sort</option>
                             <option value="-createdAt">Newest</option>
                             <option value="createdAt">Oldest</option>
@@ -137,7 +153,7 @@ export default function Home() {
                         onChange={(event) => setSearch(event.target.value)}
                         />
                         <button
-                        className="h-12 rounded-xl bg-indigo-600 px-8
+                        className="h-12 rounded-xl bg-indigo-600 px-8 cursor-pointer
                         font-semibold text-white transition hover:bg-indigo-500"
                         >
                         Search
@@ -146,7 +162,7 @@ export default function Home() {
                     {/* SCROLLABLE LIST */}
                     <div className="max-h-[800px] min-h-[600px] overflow-y-auto space-y-4 pr-2">
                         {/* CARD */}
-                        {lodgings.map(lodging => {
+                        {lodgings?.rows?.map(lodging => {
                             return (
                                 <Card lodging={lodging}/>
                             )
@@ -155,9 +171,11 @@ export default function Home() {
                     </div>
                     {/* PAGINATION */}
                     <div className="flex justify-center gap-2 pt-4 animate-fade-in">
-                        <button className="px-4 py-2 rounded border border-gray-200 cursor-pointer">1</button>
-                        <button className="px-4 py-2 rounded border border-gray-200">2</button>
-                        <button className="px-4 py-2 rounded border border-gray-200">3</button>
+                        <button className="px-4 py-2 rounded border hover:bg-gray-100 border-gray-200 cursor-pointer" 
+                            onClick={() => setPage((prevData) => (prevData === 1)? prevData : prevData-1)}>◁</button>
+                        {pageNum(Math.ceil(lodgings.count/lodgings.limit))}
+                        <button className="px-4 py-2 rounded border hover:bg-gray-100 border-gray-200 cursor-pointer" 
+                            onClick={() => setPage((prevData) => (prevData === Math.ceil(lodgings.count/lodgings.limit))? prevData : prevData+1)}>▷</button>
                     </div>
                     </div>
                 </div>
