@@ -51,11 +51,13 @@ export default function AddUser() {
                 className="col-md-9 ms-sm-auto col-lg-10 px-md-4"
                 id="new-user-section"
             >
-                <div className="row">
+                <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 className="display-2">Register User</h1>
+                </div>
+                <div className="row justify-content-center">
                 <div className="col-12 col-md-6">
                     <div className="pt-3 pb-2 mb-3 border-bottom">
                     <form id="register-form" onSubmit={handleSubmit}>
-                        <h1 className="h3 mb-3 display-1">Register User</h1>
                         <div className="mb-3">
                         <div className="d-flex justify-content-between">
                             <label htmlFor="register-email">Email</label>
