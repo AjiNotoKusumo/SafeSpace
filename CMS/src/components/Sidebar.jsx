@@ -18,7 +18,7 @@ export default function Sidebar({email}) {
                 <div className="position-sticky pt-3">
                 <ul className="nav flex-column">
                     <li className="nav-item">
-                    <NavLink to="/lodgings" className="nav-link" href="" id="nav-product">
+                    <NavLink to="/lodgings" className={({ isActive }) => (isActive ? "text-decoration-underline nav-link" : "nav-link")} id="nav-product">
                         {" "}
                         <span className="icon material-symbols-outlined me-2">
                         hotel
@@ -27,7 +27,7 @@ export default function Sidebar({email}) {
                     </NavLink>
                     </li>
                     <li className="nav-item">
-                    <NavLink to="/types" className="nav-link" href="" id="nav-category">
+                    <NavLink to="/types" className={({ isActive }) => (isActive ? "text-decoration-underline nav-link" : "nav-link")} id="nav-category">
                         {" "}
                         <span className="icon material-symbols-outlined me-2">
                         category
@@ -36,7 +36,7 @@ export default function Sidebar({email}) {
                     </NavLink>
                     </li>
                     <li className="nav-item">
-                    <NavLink to="/register" className="nav-link" href="" id="nav-category">
+                    <NavLink to="/register" className={({ isActive }) => (isActive ? "text-decoration-underline nav-link" : "nav-link")} id="nav-category">
                         {" "}
                         <span className="icon material-symbols-outlined me-2">
                         account_circle
@@ -50,7 +50,7 @@ export default function Sidebar({email}) {
                 </h6>
                 <ul className="nav flex-column mb-2">
                     <li className="nav-item">
-                    <a className="nav-link">
+                    <a className="nav-link text-decoration-none">
                         {" "}
                         <span className="icon material-symbols-outlined me-2">
                         person
@@ -59,13 +59,13 @@ export default function Sidebar({email}) {
                     </a>
                     </li>
                     <li className="nav-item">
-                    <a className="nav-link" href="" id="nav-logout" onClick={handleLogout}>
+                    <button className="nav-link" href="" id="nav-logout" onClick={handleLogout}>
                         {" "}
                         <span className="icon material-symbols-outlined me-2">
                         logout
                         </span>
                         Logout
-                    </a>
+                    </button>
                     </li>
                 </ul>
                 </div>

@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router";
 import AddLodging from "./views/AddLodging"
 import AddUser from "./views/AddUser"
 import EditLodging from "./views/EditLodging"
@@ -31,12 +31,13 @@ function App() {
       {/* End Preloader */}
       <BrowserRouter>
         <Routes>
-          <Route path="/login" element={<Login email={email} setEmail={setEmail}/>} />
+          <Route path="/login" element={<Login email={email} setEmail={setEmail}/>} index />
+          <Route path="/" element={<Navigate to="/lodgings" replace />} />
+
           <Route element={<BaseLayout email={email}/>}>
-            <Route path="/lodgings" element={<Lodgings />} index/>
+            <Route path="/lodgings" element={<Lodgings />}/>
             <Route path="/create" element={<AddLodging />} />
             <Route path="/edit/:id" element={<EditLodging />} />
-            <Route path="/update" element={<Update />} />
             <Route path="/types" element={<Types />} />
             <Route path="/register" element={<AddUser />} />
           </Route>

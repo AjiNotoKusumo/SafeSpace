@@ -4,24 +4,30 @@ import currencyFormatter from "../helpers/formatCurrency"
 import { NavLink } from "react-router"
 import baseUrl from "../constants/baseUrl"
 import notification from "../helpers/notification"
+import gifLoading from '../assets/gifLoading.svg'
 
 export default function Lodgings() {
     const [lodgings, setLodgings] = useState([])
     const [file, setFile] = useState({})
     const [modal, setModal] = useState(false)
     const [id, setId] = useState(0)
+    const [loading, setLoading] = useState(false)
 
     async function fetchLodgings() {
         try {
+            setLoading(true)
+
             const {data} = await axios.get(`${baseUrl}/lodgings`, {
                 headers: {
                     Authorization: `bearer ${localStorage.getItem('access_token')}`
                 }
             })
 
-            setLodgings(data.data)
+            setLodgings(data?.data)
         } catch (error) {
-            console.log(error);
+            console.log(error.response.data.message);
+        } finally {
+            setLoading(false)
         }
     }
 
@@ -122,7 +128,13 @@ export default function Lodgings() {
                 </NavLink>
                 </div>
                 <div className="row">
-                <div className="col-12 table-responsive">
+
+                {loading ? (
+                    <div className="d-flex justify-content-center mt-1">
+                        <img src={gifLoading} width="7%" />
+                    </div>
+                ) : (
+                    <div className="col-12 table-responsive">
                     <table className="table align-middle">
                     <thead>
                         <tr>
@@ -182,7 +194,9 @@ export default function Lodgings() {
                         
                     </tbody>
                     </table>
-                </div>
+                    </div>
+                )}
+                
                 </div>
             </section>
             {/* End Product Section */}
