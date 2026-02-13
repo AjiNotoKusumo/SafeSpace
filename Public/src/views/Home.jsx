@@ -3,10 +3,14 @@ import { useEffect, useState } from 'react'
 import baseUrl from '../constants/baseUrl';
 import Card from '../components/Card';
 import homePic from '../assets/homePic.jpg'
+import { NavHashLink } from 'react-router-hash-link';
+import CardLoading from '../components/CardLoading';
 
 export default function Home() {
     const [types, setTypes] = useState([])
     const [lodgings, setLodgings] = useState([])
+    const [loadingType, setLoadingType] = useState(false)
+    const [loadingLodging, setLoadingLodging] = useState(false)
     const [search, setSearch] = useState('')
     const [filter, setFilter] = useState('')
     const [sort, setSort] = useState('')
@@ -14,23 +18,29 @@ export default function Home() {
 
     async function fetchTypes() {
         try {
+            setLoadingType(true) 
             const {data} = await axios.get(`${baseUrl}/pub/types`)
             
-            setTypes(data.data)
+            setTypes(data?.data)
         } catch (error) {
             console.log(error.response.data.message);
+        } finally {
+            setLoadingType(false) 
         }
         
     }
 
     async function fetchLodgings() {
         try {
+            setLoadingLodging(true) 
+
             const {data} = await axios.get(`${baseUrl}/pub?search=${search}&filter=${filter}&sort=${sort}&page=${page}`)
-            console.log(page);
             
-            setLodgings(data.data)
+            setLodgings(data?.data)
         } catch (error) {
             console.log(error.response.data.message);
+        } finally {
+            setLoadingLodging(false) 
         }
         
     }
@@ -74,14 +84,14 @@ export default function Home() {
                     <h1 className="mt-3 text-4xl font-bold animate-fade-in delay-100">
                     Discover Lodgings That Feels Like Home
                     </h1>
-                    <a
-                    href="#explore"
-                    className="mt-8 inline-block rounded-xl bg-indigo-600 px-10 py-4
-                    font-semibold text-white transition hover:bg-indigo-500
+                    <NavHashLink
+                    to="#explore"
+                    className="mt-8 inline-block rounded-xl bg-indigo-500 px-10 py-4
+                    font-semibold text-white transition hover:bg-indigo-400
                     animate-fade-in delay-200"
                     >
                     Explore now
-                    </a>
+                    </NavHashLink>
                 </div>
                 </section>
                 {/* EXPLORE */}
@@ -114,20 +124,34 @@ export default function Home() {
                                 All
                             </button>
                             </li>
-
-                            {types.map(type => {
+                            
+                            {loadingType ? 
+                                Array.from({ length: 7 }).map((_, i) => {
+                                    return (
+                                        <li>
+                                            <div className=" w-full rounded-lg px-3 py-2 bg-gray-200 shimmer" >
+                                                <div className="h-4 w-2/3 rounded bg-gray-300" />
+                                            </div>
+                                        </li>
+                                    )
+                                })
+                            :
+                                types.map(type => {
                                 return (
                                     <li>
                                         <button
                                             className={`w-full text-left rounded-lg px-3 py-2 cursor-pointer
                                                 transition ${filter === type.id ? 'font-medium hover:bg-indigo-50 text-indigo-600' : 'hover:bg-gray-100'}`}
-                                            onClick={() => setFilter(type.id)}
+                                            onClick={() => {setFilter(type.id); setPage(1)}}
                                         >
                                             {type.name}
                                         </button>
                                     </li>
                                 )
-                            })}
+                                })
+                            }
+
+                            
                             
                         </ul>
                         </div>
@@ -150,7 +174,7 @@ export default function Home() {
                         placeholder="Search by name or location"
                         className="flex-1 h-12 rounded-xl border border-gray-200 px-5
                         focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                        onChange={(event) => setSearch(event.target.value)}
+                        onChange={(event) => {setSearch(event.target.value); setPage(1)}}
                         />
                         <button
                         className="h-12 rounded-xl bg-indigo-600 px-8 cursor-pointer
@@ -162,11 +186,21 @@ export default function Home() {
                     {/* SCROLLABLE LIST */}
                     <div className="max-h-[800px] min-h-[600px] overflow-y-auto space-y-4 pr-2">
                         {/* CARD */}
-                        {lodgings?.rows?.map(lodging => {
-                            return (
-                                <Card lodging={lodging}/>
-                            )
-                        })}
+                        {loadingLodging ? 
+                            Array.from({ length: 3 }).map((_, i) => {
+                                return (
+                                    <CardLoading/>
+                                )
+                            })
+                            
+                        : 
+                            lodgings?.rows?.map(lodging => {
+                                return (
+                                    <Card lodging={lodging}/>
+                                )
+                            })
+                        }
+                        
                         
                     </div>
                     {/* PAGINATION */}
