@@ -79,7 +79,7 @@ export default function Home() {
                 <div className="absolute inset-0 bg-gradient-to-b from-black/40 to-black/70" />
                 <div className="relative z-10 flex flex-col items-center justify-center h-full px-4 text-center text-white">
                     <p className="text-sm uppercase tracking-widest text-indigo-200 animate-fade-in">
-                    Find Aji
+                    Find your safe space
                     </p>
                     <h1 className="mt-3 text-4xl font-bold animate-fade-in delay-100">
                     Discover Lodgings That Feels Like Home
