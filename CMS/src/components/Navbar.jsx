@@ -1,4 +1,5 @@
 import logo from '../assets/SafeSpaceLogo.png';
+import { NavLink } from "react-router";
 
 export default function Navbar() {
     return (
@@ -8,7 +9,7 @@ export default function Navbar() {
                 className="navbar sticky-top bg-white flex-md-nowrap p-0 shadow"
                 id="navbar"
             >
-                <a className="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6">
+                <NavLink to="/" className="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6">
                 {" "}
                 <img
                     src={logo}
@@ -17,7 +18,7 @@ export default function Navbar() {
                     alt="logo"
                 />
                 Admin Panel
-                </a>
+                </NavLink>
                 <button
                 className="navbar-toggler position-absolute d-md-none collapsed"
                 type="button"
