@@ -50,8 +50,8 @@ export default function Login() {
                     </span>
                   </div>
                   <div className="col-12 col-lg-8 offset-lg-2 my-5">
-                    <div className="row">
-                      <div className="col-12 col-md-6 border-end p-5 text-left">
+                    <div className="row border rounded-5">
+                      <div className="col-12 col-md-6 border-end p-5 rounded-start-5 text-left bg-light">
                         <img
                           src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?fm=jpg&q=60&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGhvdGVsc3xlbnwwfHwwfHx8MA%3D%3D"
                           width="350px"

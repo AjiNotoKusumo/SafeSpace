@@ -138,17 +138,17 @@ export default function Lodgings() {
                     <table className="table align-middle">
                     <thead>
                         <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Name</th>
-                        <th scope="col" width="180px">
+                        <th scope="col" className="text-center">#</th>
+                        <th scope="col" className="text-center">Name</th>
+                        <th scope="col" className="text-center" width="180px">
                             Image
                         </th>
-                        <th scope="col" width="250px">
+                        <th scope="col" className="text-center" width="250px">
                             Facilities
                         </th>
-                        <th scope="col">Capacity</th>
-                        <th scope="col">Price</th>
-                        <th scope="col">Author</th>
+                        <th scope="col" className="text-center">Capacity</th>
+                        <th scope="col" className="text-center">Price</th>
+                        <th scope="col" className="text-center">Author</th>
                         <th scope="col" width="50px" />
                         </tr>
                     </thead>
@@ -161,11 +161,11 @@ export default function Lodgings() {
                                 <td>
                                     <img
                                     src={lodging.imgUrl}
-                                    className="img-fluid"
+                                    className="img-fluid rounded-2"
                                     />
                                 </td>
                                 <td>{lodging.facility}</td>
-                                <td>{lodging.roomCapacity}</td>
+                                <td className="text-center">{lodging.roomCapacity}</td>
                                 <td className="fw-bold">{currencyFormatter(lodging.price)}</td>
                                 <td>{lodging.User.email}</td>
                                 <td>

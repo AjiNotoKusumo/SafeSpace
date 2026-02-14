@@ -118,7 +118,7 @@ export default function LodgingForm({id}) {
                     <img src={gifLoading} width="7%" />
                 </div>
             ) : (
-                <div className="row justify-content-center">
+                <div className="row justify-content-center mt-5">
                     <div className="col-12 col-md-6">
                         <form id="lodging-form" onSubmit={(event) => handleSubmit(event)}>
                         <div className="mb-3">
