@@ -7,11 +7,9 @@ import Login from "./views/Login"
 import Types from "./views/Types"
 import Update from "./views/Update"
 import BaseLayout from "./views/BaseLayout";
-import { useState } from "react";
 
 
 function App() {
-  const [email, setEmail] = useState('')
 
   return (
     <>
@@ -31,10 +29,10 @@ function App() {
       {/* End Preloader */}
       <BrowserRouter>
         <Routes>
-          <Route path="/login" element={<Login email={email} setEmail={setEmail}/>} index />
+          <Route path="/login" element={<Login />} index />
           <Route path="/" element={<Navigate to="/lodgings" replace />} />
 
-          <Route element={<BaseLayout email={email}/>}>
+          <Route element={<BaseLayout/>}>
             <Route path="/lodgings" element={<Lodgings />}/>
             <Route path="/create" element={<AddLodging />} />
             <Route path="/edit/:id" element={<EditLodging />} />

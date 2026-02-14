@@ -5,7 +5,7 @@ export default function Footer() {
                 <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
                     <span className="font-bold text-gray-900 dark:text-white">SafeSpace</span>
                     <a
-                        href="/"
+                        href="https://github.com/H8-FSJS-P2S6/gc02-AjiNotoKusumo"
                         target="_blank"
                         className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-indigo-500 hover:text-white transition-colors"
                     >

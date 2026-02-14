@@ -168,20 +168,23 @@ export default function Home() {
                     {/* CONTENT */}
                     <div className="lg:col-span-3 space-y-6">
                     {/* SEARCH */}
-                    <div className="flex gap-3 animate-fade-in delay-100">
+                    <div className="flex animate-fade-in delay-100">
                         <input
                         type="text"
                         placeholder="Search by name or location"
-                        className="flex-1 h-12 rounded-xl border border-gray-200 px-5
+                        className="flex-1 h-12 rounded-l-xl border border-gray-300 px-5
                         focus:outline-none focus:ring-2 focus:ring-indigo-500"
                         onChange={(event) => {setSearch(event.target.value); setPage(1)}}
                         />
-                        <button
-                        className="h-12 rounded-xl bg-indigo-600 px-8 cursor-pointer
-                        font-semibold text-white transition hover:bg-indigo-500"
+                        <div
+                        className="h-12 rounded-r-xl bg-indigo-600 px-8 pt-3
+                        font-semibold text-white transition"
                         >
-                        Search
-                        </button>
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                        </div>
                     </div>
                     {/* SCROLLABLE LIST */}
                     <div className="max-h-[800px] min-h-[600px] overflow-y-auto space-y-4 pr-2">

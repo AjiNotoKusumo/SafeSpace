@@ -82,8 +82,8 @@ export default function Lodgings() {
             {modal && (
                 
                 <div className="modal fade show d-block" tabIndex="-1">
-                <div className="modal-dialog">
-                    <div className="modal-content">
+                <div className="modal-dialog modal-dialog-centered">
+                    <div className="modal-content modal-animate modal-enter">
                     
                     <div className="modal-header">
                         <h5 className="modal-title">Upload Image</h5>

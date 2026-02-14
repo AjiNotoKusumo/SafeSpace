@@ -3,7 +3,7 @@ import Navbar from "../components/NavBar"
 import Sidebar from "../components/Sidebar"
 
 
-export default function BaseLayout({email}) {
+export default function BaseLayout() {
 
     if(!localStorage.access_token) {
         return (
@@ -19,7 +19,7 @@ export default function BaseLayout({email}) {
 
             <section className="container-fluid" id="home-section">
                 <div className="row">
-                  <Sidebar email={email}/>
+                  <Sidebar />
                   <Outlet />
                   
                 </div>

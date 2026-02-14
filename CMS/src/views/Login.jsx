@@ -5,9 +5,10 @@ import { Navigate, useNavigate } from "react-router";
 import notification from "../helpers/notification";
 import logo from '../assets/SafeSpaceLogo.png';
 
-export default function Login({email, setEmail}) {
+export default function Login() {
     const [password, setPassword] = useState('')
     const navigate = useNavigate()
+    const [email, setEmail] = useState('')
 
     async function handleLogin(event) {
       event.preventDefault()
@@ -15,6 +16,7 @@ export default function Login({email, setEmail}) {
         const {data} = await axios.post('https://gc1.rookiedev.online/login', {email, password})
 
         localStorage.setItem('access_token', data.access_token)
+        localStorage.setItem('email', email)
 
         navigate("/lodgings")
         notification('Login success', 'success')

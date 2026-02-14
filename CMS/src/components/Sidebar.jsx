@@ -1,6 +1,6 @@
 import { NavLink, useNavigate } from "react-router";
 
-export default function Sidebar({email}) {
+export default function Sidebar() {
     const navigate = useNavigate()
 
     async function handleLogout() {
@@ -55,11 +55,11 @@ export default function Sidebar({email}) {
                         <span className="icon material-symbols-outlined me-2">
                         person
                         </span>
-                        Hey, <span id="username">{email.split('@')[0] || 'SafeSpacer'}</span>
+                        Hey, <span id="username">{localStorage.getItem('email') ? localStorage.getItem('email').split('@')[0] : 'SafeSpacer'}</span>
                     </a>
                     </li>
                     <li className="nav-item">
-                    <button className="nav-link" href="" id="nav-logout" onClick={handleLogout}>
+                    <button className="nav-link" id="nav-logout" onClick={handleLogout}>
                         {" "}
                         <span className="icon material-symbols-outlined me-2">
                         logout
